@@ -8,7 +8,7 @@
 
 <div class="section-title">VISÃO COMERCIAL</div><section class="grid"><div class="panel"><h2>1. Como o faturamento evolui ao longo do tempo?</h2><p>Faturamento mensal conforme os filtros selecionados.</p><div id="trend" class="chart"></div></div><div class="panel"><h2>2. Quais produtos geram mais faturamento?</h2><p>Top 10 produtos por valor vendido.</p><div id="products" class="chart"></div></div><div class="panel"><h2>3. Como as vendas se distribuem por categoria?</h2><p>Faturamento por grupo de produtos.</p><div id="categories" class="chart"></div></div><div class="panel"><h2>4. Como o faturamento se distribui por vendedor?</h2><p>Receita gerada por cada vendedor.</p><div id="salespeople" class="chart"></div></div><div class="panel full"><h2>5. Quais cidades concentram o faturamento?</h2><p>Distribuição geográfica das vendas.</p><div id="cities" class="chart"></div></div></section>
 
-<div class="section-title">VISÃO OPERACIONAL E FINANCEIRA</div><section class="grid"><div class="panel"><h2>6. Como os pedidos estão distribuídos por status?</h2><p>Acompanhamento da situação operacional dos pedidos.</p><div id="status" class="chart"></div></div><div class="panel"><h2>7. Como os clientes estão pagando?</h2><p>Faturamento por método de pagamento.</p><div id="payments" class="chart"></div></div><div class="panel full"><h2>8. Como o preço de venda varia em relação à referência?</h2><p>Comparação média por produto entre preço de referência e preço efetivamente vendido.</p><div id="prices" class="chart"></div><div class="legend">A variação é uma comparação com o preço de referência; não representa margem ou lucro.</div></div></section>
+<div class="section-title">VISÃO OPERACIONAL E FINANCEIRA</div><section class="grid"><div class="panel"><h2>6. Como os pedidos estão distribuídos por status?</h2><p>Acompanhamento da situação operacional dos pedidos.</p><div id="status" class="chart"></div></div><div class="panel"><h2>7. Como os clientes estão pagando?</h2><p>Faturamento por método de pagamento.</p><div id="payments" class="chart"></div></div><div class="panel full"><h2>8. Como o preço de venda varia em relação à referência?</h2><p>Preço médio ponderado pela quantidade vendida, comparando referência, venda e variação percentual.</p><div id="prices" class="chart"></div><div class="legend">A variação é uma comparação com o preço de referência; não representa margem ou lucro.</div></div></section>
 
 <div class="source"><b>Base carregada do GitHub:</b> <code>data/vendas_limpeza_01.csv</code> + <code>data/vendas_limpeza_02.csv</code>. Preços de referência documentados na planilha de trabalho.</div>
 
@@ -34,19 +34,22 @@ function statusBars(r){const counts={};r.forEach(d=>counts[d.delivery_status]=(c
 function priceChart(r){
 const a={};
 r.forEach(d=>{
-if(!a[d.product_name])a[d.product_name]={ref:0,sale:0,n:0};
-a[d.product_name].ref+=d.reference_price_brl;
-a[d.product_name].sale+=d.unit_sale_price_brl;
-a[d.product_name].n++
+if(!a[d.product_name])a[d.product_name]={ref:0,sale:0,qty:0};
+a[d.product_name].ref+=d.reference_price_brl*d.quantity;
+a[d.product_name].sale+=d.unit_sale_price_brl*d.quantity;
+a[d.product_name].qty+=d.quantity;
 });
 const z=Object.entries(a).map(([k,v])=>{
-const ref=v.ref/v.n,sale=v.sale/v.n,diff=sale-ref,varp=ref?(diff/ref)*100:0;
-return [k,ref,sale,diff,varp]
+const ref=v.qty?v.ref/v.qty:0;
+const sale=v.qty?v.sale/v.qty:0;
+const diff=sale-ref;
+const varp=ref?(diff/ref)*100:0;
+return [k,ref,sale,diff,varp,v.qty];
 }).sort((a,b)=>Math.abs(b[4])-Math.abs(a[4])).slice(0,8);
 let s='<svg viewBox="0 0 900 430" preserveAspectRatio="none" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">';
-s+='<text x="20" y="20" font-size="11" font-weight="700" fill="#37443d">Top 8 maiores diferenças entre referência e venda</text>';
-s+='<text x="20" y="39" font-size="10" fill="#68766f">Valores médios por unidade. Leia da esquerda para a direita: referência → venda → diferença.</text>';
-s+='<text x="560" y="39" font-size="10" font-weight="700" fill="#68766f">REFERÊNCIA</text><text x="650" y="39" font-size="10" font-weight="700" fill="#68766f">VENDA</text><text x="735" y="39" font-size="10" font-weight="700" fill="#68766f">DIFERENÇA</text><text x="835" y="39" font-size="10" font-weight="700" fill="#68766f">VAR.</text>';
+s+='<text x="20" y="20" font-size="11" font-weight="700" fill="#37443d">Variação percentual do preço por produto</text>';
+s+='<text x="20" y="39" font-size="10" fill="#68766f">Média ponderada pela quantidade vendida. Os 8 maiores desvios percentuais são destacados.</text>';
+s+='<text x="500" y="39" font-size="10" font-weight="700" fill="#68766f">REFERÊNCIA</text><text x="590" y="39" font-size="10" font-weight="700" fill="#68766f">VENDA</text><text x="680" y="39" font-size="10" font-weight="700" fill="#68766f">DIFERENÇA</text><text x="790" y="39" font-size="10" font-weight="700" fill="#68766f">VARIAÇÃO</text>';
 z.forEach((x,i)=>{
 const y=58+i*43;
 const label=esc(x[0]);
@@ -56,10 +59,10 @@ const sign=x[3]>=0?'+':'';
 const varSign=x[4]>=0?'+':'';
 s+='<rect x="10" y="'+(y-18)+'" width="880" height="34" rx="7" fill="'+(i%2===0?'#f7faf8':'#ffffff')+'" stroke="#e5ebe7"/>';
 s+='<text x="22" y="'+(y+4)+'" font-size="10" fill="#37443d">'+shown+'</text>';
-s+='<text x="560" y="'+(y+4)+'" font-size="10" font-weight="700" fill="#087f5b">'+money(x[1])+'</text>';
-s+='<text x="650" y="'+(y+4)+'" font-size="10" font-weight="700" fill="#37443d">'+money(x[2])+'</text>';
-s+='<text x="735" y="'+(y+4)+'" font-size="10" font-weight="700" fill="'+(positive?'#087f5b':'#9a4d38')+'">'+sign+money(x[3])+'</text>';
-s+='<text x="835" y="'+(y+4)+'" font-size="10" font-weight="800" fill="'+(positive?'#087f5b':'#9a4d38')+'">'+varSign+x[4].toLocaleString('pt-BR',{maximumFractionDigits:1})+'%</text>';
+s+='<text x="500" y="'+(y+4)+'" font-size="10" font-weight="700" fill="#087f5b">'+money(x[1])+'</text>';
+s+='<text x="590" y="'+(y+4)+'" font-size="10" font-weight="700" fill="#37443d">'+money(x[2])+'</text>';
+s+='<text x="680" y="'+(y+4)+'" font-size="10" font-weight="700" fill="'+(positive?'#087f5b':'#9a4d38')+'">'+sign+money(x[3])+'</text>';
+s+='<text x="790" y="'+(y+4)+'" font-size="10" font-weight="800" fill="'+(positive?'#087f5b':'#9a4d38')+'">'+varSign+x[4].toLocaleString('pt-BR',{maximumFractionDigits:1})+'%</text>';
 });
 return s+'</svg>';
 }
