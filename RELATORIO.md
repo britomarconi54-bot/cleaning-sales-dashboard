@@ -76,16 +76,16 @@ Na revisão final, também foi corrigido o carregamento dos dois arquivos CSV pa
 
 **Repositório público:**
 
-https://github.com/britomarconi54-bot/porsche-sales-dashboard
+https://github.com/britomarconi54-bot/cleaning-sales-dashboard
 
 **Dashboard:**
 
-https://britomarconi54-bot.github.io/porsche-sales-dashboard/
+https://britomarconi54-bot.github.io/cleaning-sales-dashboard/
 
 ## 7. Estrutura
 
 ```
-porsche-sales-dashboard/
+cleaning-sales-dashboard/
 ├── index.html
 ├── data/
 │   ├── vendas_limpeza_01.csv
