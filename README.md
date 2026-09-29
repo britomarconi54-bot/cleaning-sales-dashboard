@@ -115,18 +115,18 @@ Os valores são referências de modelagem e podem variar conforme marca, embalag
 
 ### Repositório — link que deve ser entregue
 
-**https://github.com/britomarconi54-bot/porsche-sales-dashboard**
+**https://github.com/britomarconi54-bot/cleaning-sales-dashboard**
 
 ### Dashboard publicada
 
-**https://britomarconi54-bot.github.io/porsche-sales-dashboard/**
+**https://britomarconi54-bot.github.io/cleaning-sales-dashboard/**
 
 > Na entrega acadêmica/portfólio, o link principal a ser enviado é o **repositório**, e não somente o endereço da dashboard.
 
 ## 9. Estrutura do repositório
 
 ```
-porsche-sales-dashboard/
+cleaning-sales-dashboard/
 ├── index.html
 ├── data/
 │   ├── vendas_limpeza_01.csv
@@ -160,8 +160,6 @@ Essas evidências mostram não apenas o código, mas também que a solução est
 - [ ] Print da dashboard foi separado como evidência.
 - [ ] Print com filtro aplicado foi separado como evidência.
 
-## 12. Observação sobre o nome do repositório
+## 12. Nome do repositório
 
-O nome atual é `porsche-sales-dashboard`, em minúsculas e sem acentos, mas o conteúdo final foi convertido para **Cleaning Sales Analytics**.
-
-Como melhoria de apresentação, o repositório pode ser renomeado para algo como `cleaning-sales-dashboard`, desde que o GitHub Pages seja ajustado/confirmado após a mudança.
+O repositório foi renomeado para `cleaning-sales-dashboard`, deixando o nome coerente com o tema final do projeto e em formato legível, em minúsculas e sem acentos.
