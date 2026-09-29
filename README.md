@@ -1,54 +1,72 @@
-# Porsche Sales Dashboard
+# Cleaning Sales Analytics
 
-Dashboard interativo de vendas Porsche desenvolvido a partir da planilha fornecida para o projeto.
+Dashboard interativo de vendas de materiais de limpeza, higiene e saneantes.
 
 ## Perguntas de negócio
 
-1. **Como a receita evolui ao longo do tempo?**  
-   Para identificar a variação mensal da receita e observar períodos de maior ou menor faturamento.
+1. **Como o faturamento evolui ao longo do tempo?**  
+   Para acompanhar a evolução mensal da receita e identificar períodos de maior ou menor faturamento.
 
-2. **Quais modelos geram mais receita?**  
-   Para comparar a contribuição financeira dos diferentes modelos e apoiar a análise do mix de produtos.
+2. **Quais produtos geram mais faturamento?**  
+   Para identificar os itens que mais contribuem para a receita e apoiar decisões de mix e estoque.
 
-3. **Como as vendas se distribuem por método de pagamento?**  
-   Para entender a composição dos pagamentos e visualizar a frequência de cada modalidade.
+3. **Como as vendas se distribuem por categoria?**  
+   Para entender quais grupos de produtos concentram maior participação no faturamento.
 
 ## Funcionalidades
 
-- Filtros por **modelo, cidade, ano da venda e método de pagamento**.
-- Indicadores de total de vendas, receita total, ticket médio e quilometragem média.
-- Gráfico de evolução da receita.
-- Ranking de modelos por receita.
-- Distribuição das vendas por método de pagamento.
-- Botão para limpar os filtros.
+- Filtros por **produto, categoria, cidade, ano e método de pagamento**.
+- KPIs de pedidos, faturamento, ticket médio e unidades vendidas.
+- Evolução mensal do faturamento.
+- Ranking dos 10 produtos com maior faturamento.
+- Faturamento por categoria.
+- Botão para limpar todos os filtros.
+- Valores apresentados em **reais (BRL)**.
 
-## Tratamento dos dados antes da IA
+## Base de dados
 
-Foi utilizada a aba **Sanitized** da planilha.
+A base foi transformada para o segmento de **materiais de limpeza e saneantes**, com:
 
-- Foram usados os campos sanitizados de data, modelo, ano, preço de venda, quilometragem, pagamento, cidade, estado e status.
-- Registros com data **INVALID** foram preservados para os indicadores e análises agregadas.
-- As 24 linhas com data INVALID foram excluídas somente do gráfico temporal, pois não seria correto inventar uma data para elas.
-- Para a publicação pública, nomes de clientes e vendedores foram removidos do HTML, pois não são necessários para responder às perguntas de negócio.
-- Os valores de venda foram tratados como valores monetários em USD, conforme os dados da planilha.
+- 100 registros de vendas;
+- 30 produtos distintos;
+- categorias de saneantes, limpeza, lavanderia, higiene, acessórios, EPI e descartáveis;
+- cidades de Pernambuco;
+- diferentes métodos de pagamento;
+- preços de venda em reais.
+
+A planilha possui também uma aba **Price_Base**, com os 30 produtos e seus preços de referência, e uma aba **Fontes**, que documenta as referências utilizadas.
+
+## Pesquisa de preços
+
+Os preços de referência foram levantados em fontes públicas de compras e licitações, principalmente em registros de 2026. Eles servem como referência para a modelagem e podem variar conforme marca, embalagem, região, especificação e volume comprado.
+
+Entre as referências consultadas estão registros do **Portal Nacional de Contratações Públicas (PNCP)** e documentos de processos licitatórios públicos. Por exemplo, registros do PNCP de 2026 apresentam preços unitários para água sanitária, álcool, desinfetantes, detergentes e outros materiais de limpeza.
 
 ## Prompt utilizado e evolução
 
 ### Prompt inicial
 
-> Crie um dashboard de vendas Porsche em HTML, com indicadores de vendas e receita, gráficos para responder perguntas de negócio, filtros por modelo, cidade, ano e método de pagamento, e uma interface profissional.
+> Crie um dashboard de vendas em HTML, com indicadores de vendas e receita, gráficos para responder perguntas de negócio, filtros por produto, cidade, ano e método de pagamento, e uma interface profissional.
 
-### Evolução do prompt
+### Evolução
 
-Depois da primeira versão, o dashboard foi ajustado para usar a planilha real enviada, responder explicitamente às três perguntas de negócio, tratar datas inválidas sem criar dados artificiais, melhorar a organização visual e preparar a página para publicação no GitHub Pages.
+O projeto foi inicialmente desenvolvido para uma base automotiva. Depois, a base foi transformada integralmente para o segmento de materiais de limpeza e saneantes.
 
-Também foi feita uma revisão dos dados incorporados ao HTML antes da publicação, removendo campos de identificação de clientes e vendedores.
+A dashboard foi então reconstruída para trabalhar com:
+
+- produtos em vez de modelos de veículos;
+- categorias de limpeza e higiene;
+- quantidade de unidades vendidas;
+- faturamento em BRL;
+- ranking de produtos;
+- análise por categoria;
+- filtros comerciais adequados ao novo negócio.
 
 ## Ferramentas utilizadas
 
-- **ChatGPT** para análise dos dados, tratamento, construção e revisão do dashboard.
-- **Ferramentas de arquivos/código** para trabalhar com a planilha e gerar o HTML.
-- **Integração com GitHub** para publicar o projeto no repositório.
+- **ChatGPT** para análise, transformação dos dados e construção/revisão da dashboard.
+- **Ferramentas de arquivos/código** para trabalhar com a planilha.
+- **Integração com GitHub** para publicação do projeto.
 - **Canvas:** não foi utilizado.
 
 ## Publicação
@@ -61,8 +79,6 @@ Dashboard:
 
 https://britomarconi54-bot.github.io/porsche-sales-dashboard/
 
-> Observação: o endereço do GitHub Pages passa a funcionar depois que o GitHub Pages estiver habilitado para a branch `main`.
-
 ## Estrutura
 
 ```
@@ -70,3 +86,5 @@ porsche-sales-dashboard/
 ├── index.html
 └── README.md
 ```
+
+> A planilha de trabalho com a nova base de materiais de limpeza contém as abas `Sanitized`, `Price_Base` e `Fontes`.
