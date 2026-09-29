@@ -20,7 +20,7 @@ O projeto transforma uma base de vendas em uma dashboard interativa publicada no
 
 **Por quê:** permite entender quais grupos de produtos concentram maior faturamento e comparar o desempenho entre categorias.
 
-Essas perguntas foram escolhidas porque cobrem três dimensões complementares: **tempo, produto e categoria**.
+Além das três perguntas principais, a versão completa também explora vendedor, cidade, método de pagamento, status dos pedidos e variação do preço de venda em relação ao preço de referência.\n\nEssas perguntas cobrem dimensões comerciais, geográficas, operacionais e financeiras da base.
 
 ## 3. Tratamento da base antes da IA
 
@@ -94,7 +94,7 @@ Também foi utilizada a integração com **GitHub** para colocar os arquivos no 
 - Filtro por categoria;
 - Filtro por cidade;
 - Filtro por ano;
-- Filtro por método de pagamento;
+- Filtro por método de pagamento;\n- KPI de percentual de pedidos entregues;\n- KPI de variação ponderada do preço de venda em relação à referência;\n- faturamento por vendedor;\n- faturamento por cidade;\n- distribuição de pedidos por status de entrega;\n- faturamento por método de pagamento;\n- comparação entre preço de referência e preço de venda;
 - botão para limpar filtros;
 - KPI de pedidos;
 - KPI de faturamento;
@@ -105,13 +105,13 @@ Também foi utilizada a integração com **GitHub** para colocar os arquivos no 
 - faturamento por categoria;
 - valores em BRL.
 
-## 7. Pesquisa de preços
+## 7. Análises adicionais da versão completa\n\nA versão final da dashboard aproveita campos que existiam na base, mas não eram exibidos na primeira versão:\n\n- **Vendedor:** faturamento por responsável comercial;\n- **Cidade:** concentração geográfica do faturamento;\n- **Pagamento:** distribuição da receita por método de pagamento;\n- **Status de entrega:** visão operacional dos pedidos;\n- **Preço de referência × preço de venda:** comparação média por produto.\n\nA variação de preço não é apresentada como lucro ou margem, porque a base não contém custo real da mercadoria.\n\n## 8. Pesquisa de preços
 
 Os preços de referência foram utilizados para apoiar a modelagem da base. As referências foram documentadas na aba `Fontes` da planilha e incluem registros públicos de compras e licitações.
 
 Os valores são referências de modelagem e podem variar conforme marca, embalagem, região, especificação e quantidade adquirida.
 
-## 8. Publicação
+## 9. Publicação
 
 ### Repositório — link que deve ser entregue
 
@@ -123,7 +123,7 @@ Os valores são referências de modelagem e podem variar conforme marca, embalag
 
 > Na entrega acadêmica/portfólio, o link principal a ser enviado é o **repositório**, e não somente o endereço da dashboard.
 
-## 9. Estrutura do repositório
+## 10. Estrutura do repositório
 
 ```
 cleaning-sales-dashboard/
@@ -135,7 +135,7 @@ cleaning-sales-dashboard/
 └── RELATORIO.md
 ```
 
-## 10. Evidência de funcionamento
+## 11. Evidência de funcionamento
 
 Para a apresentação do projeto, recomenda-se incluir:
 
@@ -146,7 +146,7 @@ Para a apresentação do projeto, recomenda-se incluir:
 
 Essas evidências mostram não apenas o código, mas também que a solução está publicada e utilizável.
 
-## 11. Checklist antes da entrega
+## 12. Checklist antes da entrega
 
 - [ ] Dashboard abre pelo GitHub Pages.
 - [ ] Filtros funcionam.
@@ -160,6 +160,6 @@ Essas evidências mostram não apenas o código, mas também que a solução est
 - [ ] Print da dashboard foi separado como evidência.
 - [ ] Print com filtro aplicado foi separado como evidência.
 
-## 12. Nome do repositório
+## 13. Nome do repositório
 
 O repositório foi renomeado para `cleaning-sales-dashboard`, deixando o nome coerente com o tema final do projeto e em formato legível, em minúsculas e sem acentos.
