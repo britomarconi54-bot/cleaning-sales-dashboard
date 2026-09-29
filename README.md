@@ -34,7 +34,7 @@ A base foi transformada para o segmento de **materiais de limpeza e saneantes**,
 - diferentes métodos de pagamento;
 - preços de venda em reais.
 
-A planilha possui também uma aba **Price_Base**, com os 30 produtos e seus preços de referência, e uma aba **Fontes**, que documenta as referências utilizadas.
+A planilha possui também uma aba **Price_Base**, com os 30 produtos e seus preços de referência, e uma aba **Fontes**, que documenta as referências utilizadas. A dashboard publicada não depende de dados embutidos no HTML: ela carrega a base operacional diretamente dos dois arquivos CSV publicados na pasta `data/`.
 
 ## Pesquisa de preços
 
@@ -84,6 +84,9 @@ https://britomarconi54-bot.github.io/porsche-sales-dashboard/
 ```
 porsche-sales-dashboard/
 ├── index.html
+├── data/
+│   ├── vendas_limpeza_01.csv
+│   └── vendas_limpeza_02.csv
 └── README.md
 ```
 
