@@ -10,13 +10,13 @@
 
 <div class="section-title">VISÃO OPERACIONAL E FINANCEIRA</div><section class="grid"><div class="panel"><h2>6. Como os pedidos estão distribuídos por status?</h2><p>Acompanhamento da situação operacional dos pedidos.</p><div id="status" class="chart"></div></div><div class="panel"><h2>7. Como os clientes estão pagando?</h2><p>Faturamento por método de pagamento.</p><div id="payments" class="chart"></div></div><div class="panel full"><h2>8. Como o preço de venda varia em relação à referência?</h2><p>Preço médio ponderado pela quantidade vendida, comparando referência, venda e variação percentual.</p><div id="prices" class="chart"></div><div class="legend">A variação é uma comparação com o preço de referência; não representa margem ou lucro.</div></div></section>
 
-<div class="source"><b>Base carregada do GitHub:</b> <code>data/vendas_limpeza_01.csv</code> + <code>data/vendas_limpeza_02.csv</code>. Preços de referência documentados na planilha de trabalho.</div>
+<div class="source"><b>Fonte dos dados:</b> CSVs tratados publicados no GitHub (<code>vendas_limpeza_01.csv</code> e <code>vendas_limpeza_02.csv</code>). <b>Base analítica:</b> 100 vendas e 30 produtos. Preços de referência documentados na base de trabalho.</div>
 
 <script>
 let DATA=[];
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
-const money=v=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0}).format(Number(v)||0);
+const money=v=>new Intl.NumberFormat("pt-BR",{style:"currency",currency:"BRL",minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(v)||0);
 const pct=v=>((Number(v)||0)*100).toLocaleString("pt-BR",{maximumFractionDigits:1})+"%";
 const uniq=a=>[...new Set(a.filter(x=>x!==undefined&&x!==null&&x!==""))].sort((a,b)=>String(a).localeCompare(String(b),"pt-BR"));
 function parseCSV(t){const out=[],re=/(,|\r?\n|\r|^)(?:"([^"]*(?:""[^"]*)*)"|([^",\r\n]*))/gi;let row=[],m;while((m=re.exec(t))){if(m[1]==="\n"||m[1]==="\r\n"){if(row.length)out.push(row);row=[]}row.push(m[2]!==undefined?m[2].replace(/""/g,'"'):m[3]);}if(row.length)out.push(row);return out}
